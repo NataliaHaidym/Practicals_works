@@ -1,0 +1,41 @@
+import numpy as np
+
+i1 = float(input("Введіть перший параметр вектору: "))
+i2 = float(input("Введіть другий параметр вектору: "))
+i = np.array([[i1], [i2], [1]])
+
+a = i
+operations = ['T', 'S', 'R']
+
+for _ in range(3):
+    op = input('Виберіть операцію: T, R, чи S\n').upper()
+    while op not in operations:
+        op = input('Виберіть операцію: T, R, чи S\n').upper()
+
+    if op == 'S':
+        sx = float(input('Масштабування - х: '))
+        sy = float(input('Масштабування - у: '))
+        S = np.array([[sx, 0, 0],
+                      [0, sy, 0],
+                      [0, 0, 1.0]])
+        a = np.dot(S, i)
+
+    if op == 'T':
+        tx = float(input('Переміщення - x: '))
+        ty = float(input('Переміщення - y: '))
+        T = np.array([[1.0, 0, tx],
+                      [0, 1.0, ty],
+                      [0, 0, 1.0]])
+        a = np.dot(T, i)
+
+    if op == 'R':
+        theta = float(input('Кут обертання: '))
+        theta = np.radians(theta)
+        R = np.array([[np.cos(theta), -np.sin(theta), 0],
+                      [np.sin(theta), np.cos(theta), 0],
+                      [0, 0, 1]])
+        a = np.dot(R, i)
+
+j = a[:2]
+print("Результатом композитного матричного перетворення є:")
+print(j)
